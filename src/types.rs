@@ -83,11 +83,15 @@ cw_serde_struct_allow_unknown_fields! {
     }
 }
 
+/// `AuthenticatorSudoMsg` contains variants of messages that can be sent to the authenticator contract
+/// from smart account module through `CosmWasmAuthenticator`.
+///
+/// `AuthenticateRequest` is `Box`-ed due to large size difference between other variants
 #[cw_serde]
 pub enum AuthenticatorSudoMsg {
     OnAuthenticatorAdded(OnAuthenticatorAddedRequest),
     OnAuthenticatorRemoved(OnAuthenticatorRemovedRequest),
-    Authenticate(AuthenticationRequest),
+    Authenticate(Box<AuthenticationRequest>),
     Track(TrackRequest),
     ConfirmExecution(ConfirmExecutionRequest),
 }
